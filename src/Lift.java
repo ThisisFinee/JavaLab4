@@ -37,10 +37,10 @@ void stop_lift(int fl){
     System.out.println("stop");
     this.condition = "Ожидание";
     while (this.up_floors.isEmpty() && this.down_floors.isEmpty()){
-        ;
+        if (this.direction!=-1){ this.direction = -1;}
     }
-    if (!this.up_floors.isEmpty()){ this.direction = 1;}
-    else {this.direction = 0;}
+    if (!this.up_floors.isEmpty() && this.direction == -1){ this.direction = 1;}
+    else if (!this.down_floors.isEmpty() && this.direction == -1){this.direction = 0;}
     try {
         Thread.sleep(3000);
     } catch (InterruptedException ex) {
@@ -54,13 +54,9 @@ void stop_lift(int fl){
             this.direction = 0;
             next_floor();
         }
+        else {next_floor();}
     }
-    else if (this.direction == 1 && this.up_floors.isEmpty() && !this.down_floors.isEmpty()){
-        change_direction();
-        this.direction = 0;
-        next_floor();
-    }
-    else if (this.direction == 0 && !this.up_floors.isEmpty() && this.down_floors.isEmpty()){
+    else if (this.direction == 1 && this.up_floors.isEmpty()){
         change_direction();
         this.direction = 0;
         next_floor();
@@ -72,13 +68,14 @@ void stop_lift(int fl){
             change_direction();
             this.direction = 1;
             next_floor();
-        }}
-    else {
-        this.up_floors.removeIf(n -> n == fl);
-        this.floor = this.up_floors.get(0);
+        }
+        else {next_floor();}
+    }
+    else if (this.direction == 0 && this.down_floors.isEmpty()){
+        change_direction();
+        this.direction = 1;
         next_floor();
     }
-
     }
 
 
@@ -94,17 +91,15 @@ void change_direction(){
 void next_floor(){
     System.out.println("next");
     this.condition = "Движение";
-    if (this.up_floors.isEmpty() && this.down_floors.isEmpty()){
-        this.direction = -1;
-        stop_lift(this.floor);
-    }
-    else if (this.direction == 1 && this.up_floors.isEmpty()){
+    if (this.direction == 1 && this.up_floors.isEmpty()){
         change_direction();
         this.direction = 0;
+        next_floor();
     }
     else if (this.direction == 0 && this.down_floors.isEmpty()){
         change_direction();
         this.direction = 1;
+        next_floor();
     }
     if (this.direction == 1 && !this.up_floors.isEmpty()){
         this.full_path.add(this.floor);
