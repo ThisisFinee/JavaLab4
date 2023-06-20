@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class Lift extends Thread {
+public class Lift{
     int floor;
     ArrayList<Integer> up_floors;
     ArrayList<Integer> down_floors;
@@ -39,8 +39,9 @@ void stop_lift(int fl){
     while (this.up_floors.isEmpty() && this.down_floors.isEmpty()){
         if (this.direction!=-1){ this.direction = -1;}
     }
-    if (!this.up_floors.isEmpty() && this.direction == -1){ this.direction = 1;}
-    else if (!this.down_floors.isEmpty() && this.direction == -1){this.direction = 0;}
+    if (this.up_floors.isEmpty() && this.direction == -1){
+        this.direction = 0;}
+    else if (this.direction == -1){this.direction = 1;}
     try {
         Thread.sleep(3000);
     } catch (InterruptedException ex) {
@@ -48,35 +49,16 @@ void stop_lift(int fl){
     }
     if (this.direction == 1 && !this.up_floors.isEmpty()){
         this.up_floors.removeIf(n -> n == fl);
-        this.floor = this.up_floors.get(0);
-        if (this.up_floors.isEmpty()){
-            change_direction();
-            this.direction = 0;
-            next_floor();
-        }
-        else {next_floor();}
-    }
-    else if (this.direction == 1 && this.up_floors.isEmpty()){
-        change_direction();
-        this.direction = 0;
+        if (!up_floors.isEmpty()){
+        this.floor = this.up_floors.get(0);}
         next_floor();
     }
     else if (this.direction == 0 && !this.down_floors.isEmpty()){
         this.down_floors.removeIf(n -> n == fl);
-        this.floor = this.down_floors.get(0);
-        if (this.down_floors.isEmpty()){
-            change_direction();
-            this.direction = 1;
-            next_floor();
-        }
-        else {next_floor();}
-    }
-    else if (this.direction == 0 && this.down_floors.isEmpty()){
-        change_direction();
-        this.direction = 1;
+        if (!down_floors.isEmpty()){
+            this.floor = this.down_floors.get(0);}
         next_floor();
-    }
-    }
+    }}
 
 
 void change_direction(){
@@ -91,6 +73,7 @@ void change_direction(){
 void next_floor(){
     System.out.println("next");
     this.condition = "Движение";
+    if (this.up_floors.isEmpty() && this.down_floors.isEmpty()){stop_lift(this.floor);}
     if (this.direction == 1 && this.up_floors.isEmpty()){
         change_direction();
         this.direction = 0;
@@ -126,14 +109,6 @@ void next_floor(){
 void next_num_floor(){
     System.out.println("next num");
     if (this.direction == 1 && !this.up_floors.isEmpty()){
-        this.next_n_floor = this.up_floors.get(1);
-    }
-    else if (this.direction == 1 && this.up_floors.isEmpty() && !this.down_floors.isEmpty()){
-        change_direction();
-        this.next_n_floor = this.down_floors.get(1);
-    }
-    else if (this.direction == 0 && this.down_floors.isEmpty() && !this.up_floors.isEmpty()){
-        change_direction();
         this.next_n_floor = this.up_floors.get(1);
     }
     else if (this.direction == 0 && !this.down_floors.isEmpty()){

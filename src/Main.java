@@ -7,6 +7,15 @@ import javafx.scene.Scene;
 
 public class Main extends Application {
 
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("interface.fxml"));
+        stage.setTitle("Lab4");
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+
     public static void main(String[] args) {
         launch(args);
 //        Scanner on = new Scanner(System.in);
@@ -24,15 +33,6 @@ public class Main extends Application {
 //            lift.add_floor(num);
 //            System.out.println(lift.floor);
 //        }
-
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("interface.fxml"));
-        stage.setTitle("Lab4");
-        stage.setScene(new Scene(root));
-        stage.show();
 
     }
 }
