@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class Interface {
+public class Interface extends Thread{
 
     @FXML
     private TextField FloorLabel;
@@ -251,13 +251,13 @@ public class Interface {
                 ex.printStackTrace();
             }
         lift.next_num_floor();
+        lift1.next_num_floor();
         textCondition.setText(lift.condition);
         textCondition1.setText(lift1.condition);
         textFloor.setText(String.valueOf(lift.floor));
         textFloor1.setText(String.valueOf(lift1.floor));
         textNextFloor.setText(String.valueOf(lift.next_n_floor));
         textNextFloor1.setText(String.valueOf(lift1.next_n_floor));
-        System.out.println(lift1.next_n_floor);
         if (lift.direction == 1){textDirection.setText("Вверх");}
         else if (lift.direction == 0){textDirection.setText("Вниз");}
         else {textDirection.setText("Ожидание");}

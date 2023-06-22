@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class Lift{
+public class Lift extends Thread{
     int floor;
     ArrayList<Integer> up_floors;
     ArrayList<Integer> down_floors;
@@ -109,10 +109,10 @@ void next_floor(){
 void next_num_floor(){
     System.out.println("next num");
     if (this.direction == 1 && !this.up_floors.isEmpty()){
-        this.next_n_floor = this.up_floors.get(1);
+        this.next_n_floor = this.up_floors.get(0);
     }
     else if (this.direction == 0 && !this.down_floors.isEmpty()){
-        this.next_n_floor = this.down_floors.get(1);
+        this.next_n_floor = this.down_floors.get(0);
     }
     else this.next_n_floor = this.floor;
 }
