@@ -266,10 +266,10 @@ public class Interface extends Thread{
         else {textDirection1.setText("Ожидание");}}
     }
     void Path_button(){
-        for (int i = 0; i < lift.full_path.size();i++){
-            System.out.print(lift.full_path.get(i));
-            System.out.print(" ");
-        }
+        System.out.print("First lift:");
+        System.out.println(lift.full_path);
+        System.out.print("Second lift:");
+        System.out.print(lift1.full_path);
     }
 
 }
